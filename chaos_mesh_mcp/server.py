@@ -67,9 +67,8 @@ server = Server("chaos-mesh-mcp")
 # Tool Definitions
 # ============================================================================
 
-@server.list_tools()
-async def list_tools() -> list[Tool]:
-    """List all available Chaos Mesh tools."""
+def get_tools() -> list[Tool]:
+    """Get all available Chaos Mesh tools. Exported for external use."""
     return [
         # NetworkChaos tools
         Tool(
@@ -680,6 +679,16 @@ async def list_tools() -> list[Tool]:
             }
         ),
     ]
+
+
+# Export tools list for external use
+TOOLS = get_tools()
+
+
+@server.list_tools()
+async def list_tools() -> list[Tool]:
+    """List all available Chaos Mesh tools."""
+    return TOOLS
 
 
 # ============================================================================
